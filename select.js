@@ -1,6 +1,6 @@
 Vue.component('el-select', {
     render: function (h) {
-        var self = this;;
+        var self = this;
         return h('div',
             {
                 'class': 'el-select'
@@ -34,7 +34,7 @@ Vue.component('el-select', {
                                     self.isFocus = true;
                                 },
                                 blur: function () {
-                                    self.isFocus = false
+                                    self.isFocus = false;
                                 }
                             }
                         })
@@ -64,7 +64,7 @@ Vue.component('el-select', {
     data: function () {
         return {
             isFocus: false,
-            storeList: [],
+            storeList: []
         }
     },
     props: {
