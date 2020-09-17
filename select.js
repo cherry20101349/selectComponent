@@ -1,6 +1,6 @@
 Vue.component('el-select', {
     render: function (h) {
-        var self = this;
+        var self = this;;
         return h('div',
             {
                 'class': 'el-select'
@@ -31,7 +31,7 @@ Vue.component('el-select', {
                                     self.$emit('input', event.target.value);
                                 },
                                 focus: function () {
-                                    self.isFocus = true
+                                    self.isFocus = true;
                                 },
                                 blur: function () {
                                     self.isFocus = false
@@ -41,7 +41,8 @@ Vue.component('el-select', {
                     ]
                 ),
                 h('div', {
-                    'class': ['el-select-dropdown']
+                    'class': ['el-select-dropdown', this.isFocus ? 'is-focus' : ''],
+                    'ref': 'ulRef'
                 }, [
                     h('ul', {'class': 'el-select-dropdown__list'}, this.storeList.map(function (item) {
                         return h('li', {
@@ -63,7 +64,7 @@ Vue.component('el-select', {
     data: function () {
         return {
             isFocus: false,
-            storeList: []
+            storeList: [],
         }
     },
     props: {
