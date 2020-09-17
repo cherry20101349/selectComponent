@@ -14,7 +14,7 @@ Vue.component('el-select', {
                         h('input', {
                             'class': 'el-input__inner',
                             'attrs': {
-                                'placeholder': this.placeholder
+                                'placeholder': this.placeholderChange
                             },
                             domProps: {
                                 value: self.value
@@ -31,10 +31,14 @@ Vue.component('el-select', {
                                     self.$emit('input', event.target.value);
                                 },
                                 focus: function () {
+                                    this.placeholderChange = this.storeSelect;
+                                    if (self.isFocus) {
+                                        self.$emit('input', '');
+                                    }
                                     self.isFocus = true;
                                 },
                                 blur: function () {
-                                    self.isFocus = false;
+                                    //self.isFocus = false;
                                 }
                             }
                         })
@@ -52,7 +56,8 @@ Vue.component('el-select', {
                             },
                             on: {
                                 click: function (event) {
-                                    self.value = 1
+                                    this.storeSelect = event.target.innerText;
+                                    self.$emit('input', event.target.innerText, event.target.dataset.type);
                                 }
                             }
                         }, [item.label])
@@ -64,7 +69,9 @@ Vue.component('el-select', {
     data: function () {
         return {
             isFocus: false,
-            storeList: []
+            storeList: [],
+            storeSelect: '',// 储存选中的option
+            placeholderChange: ''
         }
     },
     props: {
@@ -83,6 +90,7 @@ Vue.component('el-select', {
     },
     created: function () {
         this.storeList = this.options;
+        this.placeholderChange = this.placeholder
     },
     methods: {}
 });
