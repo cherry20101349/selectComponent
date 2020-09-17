@@ -31,7 +31,8 @@ Vue.component('el-select', {
                                     self.$emit('input', event.target.value);
                                 },
                                 focus: function () {
-                                    this.placeholderChange = this.storeSelect;
+                                    self.placeholderChange = self.storeSelect;
+                                    self.storeList = self.options;
                                     if (self.isFocus) {
                                         self.$emit('input', '');
                                     }
@@ -56,7 +57,7 @@ Vue.component('el-select', {
                             },
                             on: {
                                 click: function (event) {
-                                    this.storeSelect = event.target.innerText;
+                                    self.storeSelect = event.target.innerText;
                                     self.$emit('input', event.target.innerText, event.target.dataset.type);
                                 }
                             }

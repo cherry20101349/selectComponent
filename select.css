@@ -44,7 +44,7 @@
     position: absolute;
     top: 40px;
     left: 0;
-    height: 200px;
+    min-height: 34px;
 }
 
 .el-select-dropdown.is-focus {
@@ -70,6 +70,11 @@
     line-height: 34px;
     box-sizing: border-box;
     cursor: pointer;
+}
+
+.el-select-dropdown__item.selected {
+    color: #409eff;
+    font-weight: 700;
 }
 
 .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
