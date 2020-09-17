@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="select.css">
+</head>
+<body>
+<div id="app" style="width: 240px;">
+    <el-select v-model="value" @input="input" :options="options" placeholder="请选择"></el-select>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="select.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            value: '',
+            options: [{
+                value: '选项1',
+                label: '黄金糕'
+            }, {
+                value: '选项2',
+                label: '双皮奶'
+            }, {
+                value: '选项3',
+                label: '蚵仔煎'
+            }, {
+                value: '选项4',
+                label: '龙须面'
+            }, {
+                value: '选项5',
+                label: '北京烤鸭'
+            }]
+        },
+        created: function () {
+        },
+        methods: {
+            input: function (value) {
+//                console.log(this.value);
+            }
+        }
+    })
+</script>
+</body>
+</html>
