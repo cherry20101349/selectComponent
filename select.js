@@ -76,14 +76,17 @@ Vue.component('el-select', {
         }
     },
     props: {
+        // input value
         value: {
             type: String,
             default: ''
         },
+        // input placeholder
         placeholder: {
             type: String,
             default: '请选择'
         },
+        // select options数据
         options: {
             type: Array,
             default: []
@@ -92,6 +95,5 @@ Vue.component('el-select', {
     created: function () {
         this.storeList = this.options;
         this.placeholderChange = this.placeholder
-    },
-    methods: {}
+    }
 });
