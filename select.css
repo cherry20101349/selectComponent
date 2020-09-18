@@ -99,3 +99,11 @@ input:-ms-input-placeholder { /* Internet Explorer 10-11 */
 .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
     background-color: #f5f7fa;
 }
+
+.el-select-dropdown__empty {
+    padding: 10px 0;
+    margin: 0;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}

@@ -28,6 +28,7 @@ Vue.component('el-select', {
                                         }
                                     });
                                     self.storeList = arr;
+                                    self.isShowEmpty = arr.length ? false : true;
                                     self.$emit('input', event.target.value);
                                 },
                                 focus: function () {
@@ -47,11 +48,14 @@ Vue.component('el-select', {
                     ]
                 ),
                 h('div', {
-                    'class': ['el-select-dropdown', this.isShowList ? 'is-focus' : ''],
+                    'class': ['el-select-dropdown', {'is-focus': this.isShowList}]
                 }, [
-                    h('ul', {'class': 'el-select-dropdown__list'}, this.storeList.map(function (item) {
+                    h('ul', {
+                        'class': 'el-select-dropdown__list',
+                        'style': {'display': !self.isShowEmpty ? 'block' : 'none'}
+                    }, this.storeList.map(function (item) {
                         return h('li', {
-                            'class': ['el-select-dropdown__item', self.storeSelect === item.label ? 'selected' : ''],
+                            'class': ['el-select-dropdown__item', {'selected': self.storeSelect === item.label}],
                             'attrs': {
                                 'data-type': item.value
                             },
@@ -63,7 +67,11 @@ Vue.component('el-select', {
                                 }
                             }
                         }, [item.label])
-                    }))
+                    })),
+                    h('p', {
+                        'class': 'el-select-dropdown__empty',
+                        'style': {'display': self.isShowEmpty ? 'block' : 'none'}
+                    }, ['暂无匹配数据'])
                 ])
             ]
         )
@@ -75,6 +83,7 @@ Vue.component('el-select', {
             storeSelect: '',// 储存选中的option
             storePlaceholder: '',
             isShowList: false,// 是否显示select列表
+            isShowEmpty: false,// 是否显示无匹配数据
         }
     },
     props: {
