@@ -33,11 +33,11 @@ Vue.component('el-select', {
                                 focus: function () {
                                     self.storePlaceholder = self.storeSelect ? self.storeSelect : self.placeholder;
                                     self.storeList = self.options;
+                                    self.isFocus = true;
+                                    self.isShowList = true;
                                     if (self.isFocus) {
                                         self.$emit('input', '');
                                     }
-                                    self.isFocus = true;
-                                    self.isShowList = true
                                 },
                                 blur: function () {
                                     //self.isFocus = false;
@@ -48,7 +48,6 @@ Vue.component('el-select', {
                 ),
                 h('div', {
                     'class': ['el-select-dropdown', this.isShowList ? 'is-focus' : ''],
-                    'ref': 'ulRef'
                 }, [
                     h('ul', {'class': 'el-select-dropdown__list'}, this.storeList.map(function (item) {
                         return h('li', {
