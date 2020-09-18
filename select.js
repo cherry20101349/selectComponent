@@ -14,7 +14,7 @@ Vue.component('el-select', {
                         h('input', {
                             'class': 'el-input__inner',
                             'attrs': {
-                                'placeholder': this.placeholderChange
+                                'placeholder': this.storePlaceholder
                             },
                             domProps: {
                                 value: self.value
@@ -31,12 +31,13 @@ Vue.component('el-select', {
                                     self.$emit('input', event.target.value);
                                 },
                                 focus: function () {
-                                    self.placeholderChange = self.storeSelect;
+                                    self.storePlaceholder = self.storeSelect;
                                     self.storeList = self.options;
                                     if (self.isFocus) {
                                         self.$emit('input', '');
                                     }
                                     self.isFocus = true;
+                                    self.isShowList = true
                                 },
                                 blur: function () {
                                     //self.isFocus = false;
@@ -46,17 +47,18 @@ Vue.component('el-select', {
                     ]
                 ),
                 h('div', {
-                    'class': ['el-select-dropdown', this.isFocus ? 'is-focus' : ''],
+                    'class': ['el-select-dropdown', this.isShowList ? 'is-focus' : ''],
                     'ref': 'ulRef'
                 }, [
                     h('ul', {'class': 'el-select-dropdown__list'}, this.storeList.map(function (item) {
                         return h('li', {
-                            'class': 'el-select-dropdown__item',
+                            'class': ['el-select-dropdown__item', self.storeSelect === item.label ? 'selected' : ''],
                             'attrs': {
                                 'data-type': item.value
                             },
                             on: {
                                 click: function (event) {
+                                    self.isShowList = false;
                                     self.storeSelect = event.target.innerText;
                                     self.$emit('input', event.target.innerText, event.target.dataset.type);
                                 }
@@ -72,7 +74,8 @@ Vue.component('el-select', {
             isFocus: false,
             storeList: [],
             storeSelect: '',// 储存选中的option
-            placeholderChange: ''
+            storePlaceholder: '',
+            isShowList: false,// 是否显示select列表
         }
     },
     props: {
@@ -94,6 +97,6 @@ Vue.component('el-select', {
     },
     created: function () {
         this.storeList = this.options;
-        this.placeholderChange = this.placeholder
+        this.storePlaceholder = this.placeholder
     }
 });
