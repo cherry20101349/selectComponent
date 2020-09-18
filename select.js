@@ -31,7 +31,7 @@ Vue.component('el-select', {
                                     self.$emit('input', event.target.value);
                                 },
                                 focus: function () {
-                                    self.storePlaceholder = self.storeSelect;
+                                    self.storePlaceholder = self.storeSelect ? self.storeSelect : self.placeholder;
                                     self.storeList = self.options;
                                     if (self.isFocus) {
                                         self.$emit('input', '');
