@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="app" style="width: 240px;font-size: 14px">
-    <el-select v-model="value" @input="input" :options="options" placeholder="请选择"></el-select>
+    <el-select v-model="value" @change="change" :options="options" placeholder="请选择"></el-select>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -46,8 +46,8 @@
         created: function () {
         },
         methods: {
-            input: function (value, label) {
-                console.log(label);
+            change: function (value, label) {
+                console.log('父组件监听的change', this.value);
             }
         }
     })

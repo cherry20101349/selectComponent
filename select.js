@@ -8,31 +8,31 @@ Vue.component('el-select', {
             [
                 h('div',
                     {
-                        'class': ['el-input', this.isFocus ? 'is-focus' : '']
+                        class: ['el-input']
                     },
                     [
                         h('input', {
-                            'class': 'el-input__inner',
-                            'attrs': {
-                                'placeholder': this.storePlaceholder
+                            class: 'el-input-inner',
+                            attrs: {
+                                placeholder: this.storePlaceholder
                             },
                             domProps: {
-                                value: self.value
+                                placeholder: this.value
                             },
                             on: {
                                 input: function (event) {
-                                    var arr = [];
-                                    self.options.map(function (item) {
-                                        if (item.label.indexOf(event.target.value) > -1) {
-                                            arr.push({value: item.value, label: item.label})
+                                    const value = event.target.value;
+                                    self.storeList = self.options.filter(function (item) {
+                                        if (item.label.indexOf(value) > -1) {
+                                            return item;
                                         }
                                     });
-                                    self.storeList = arr;
-                                    self.isShowEmpty = arr.length ? false : true;
-                                    self.$emit('input', event.target.value);
+                                    self.isShowEmpty = !self.storeList.length;
+                                    // 选中li的时候判断是否非选中的li，是的话再$emit('change', value)
+                                    // self.$emit('input', value);
                                 },
                                 focus: function () {
-                                    self.storePlaceholder = self.storeSelect ? self.storeSelect : self.placeholder;
+                                    self.storePlaceholder = self.storeSelect || self.placeholder;
                                     self.storeList = self.options;
                                     self.isFocus = true;
                                     self.isShowList = true;
@@ -48,7 +48,7 @@ Vue.component('el-select', {
                     ]
                 ),
                 h('div', {
-                    'class': ['el-select-dropdown', {'is-focus': this.isShowList}]
+                    'class': ['el-select-dropdown', {'visible': this.isShowList}]
                 }, [
                     h('ul', {
                         'class': 'el-select-dropdown__list',
@@ -63,7 +63,7 @@ Vue.component('el-select', {
                                 click: function (event) {
                                     self.isShowList = false;
                                     self.storeSelect = event.target.innerText;
-                                    self.$emit('input', event.target.innerText, event.target.dataset.type);
+                                    self.$emit('change', event.target.innerText, event.target.dataset.type);
                                 }
                             }
                         }, [item.label])
@@ -76,15 +76,9 @@ Vue.component('el-select', {
             ]
         )
     },
-    data: function () {
-        return {
-            isFocus: false,
-            storeList: [],
-            storeSelect: '',// 储存选中的option
-            storePlaceholder: '',
-            isShowList: false,// 是否显示select列表
-            isShowEmpty: false,// 是否显示无匹配数据
-        }
+    model: {
+        prop: 'value',
+        event: 'change'
     },
     props: {
         // input value
@@ -101,6 +95,16 @@ Vue.component('el-select', {
         options: {
             type: Array,
             default: []
+        }
+    },
+    data: function () {
+        return {
+            isFocus: false,
+            storeList: [],
+            storeSelect: '',// 储存选中的option
+            storePlaceholder: '',
+            isShowList: false,// 是否显示select列表
+            isShowEmpty: false,// 是否显示无匹配数据
         }
     },
     created: function () {

@@ -24,7 +24,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10-11 */
     width: 100%;
 }
 
-.el-select .el-input .el-input__inner {
+.el-select .el-input .el-input-inner {
     -webkit-appearance: none;
     background-color: #fff;
     background-image: none;
@@ -42,7 +42,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10-11 */
     width: 100%;
 }
 
-.el-select .el-input.is-focus .el-input__inner {
+.el-select .el-input .el-input-inner:focus {
     border-color: #409eff;
 }
 
@@ -65,7 +65,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10-11 */
     overflow: auto;
 }
 
-.el-select-dropdown.is-focus {
+.el-select-dropdown.visible {
     display: block;
 }
 
